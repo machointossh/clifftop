@@ -3,12 +3,12 @@ import {expect} from 'chai'
 
 describe('hello:greetings', () => {
   it('runs hello:greetings cmd', async () => {
-    const {stdout} = await runCommand('hello:greetings')
-    expect(stdout).to.contain('hello world')
+    const {error} = await runCommand('hello:greetings')
+    expect(error?.message).to.contain('Missing 1 required arg:')
   })
 
-  it('runs hello:greetings --name oclif', async () => {
-    const {stdout} = await runCommand('hello:greetings --name oclif')
-    expect(stdout).to.contain('hello oclif')
+  it('runs hello:greetings jack -h mr.', async () => {
+    const {stdout} = await runCommand('hello:greetings jack -h mr.')
+    expect(stdout).to.contain(', Mr. Jack')
   })
 })

@@ -1,27 +1,32 @@
 import {Args, Command, Flags} from '@oclif/core'
 
+import {getGreetings} from '../../utils/greetings.js'
+import {capitalizeFirstLetter} from '../../utils/strings.js'
+
 export default class HelloGreetings extends Command {
   static override args = {
-    file: Args.string({description: 'file to read'}),
+    name: Args.string({description: 'the name to greet', required: true}),
   }
   static override description = 'describe the command here'
-  static override examples = [
-    '<%= config.bin %> <%= command.id %>',
-  ]
+  static override examples = ['<%= config.bin %> <%= command.id %>']
   static override flags = {
-    // flag with no value (-f, --force)
-    force: Flags.boolean({char: 'f'}),
-    // flag with a value (-n, --name=VALUE)
-    name: Flags.string({char: 'n', description: 'name to print'}),
+    // flag with a value (-h, --honorific=VALUE)
+    honorific: Flags.string({char: 'h', description: 'honorific to add before name'}),
+    // flag with no value (-u, --utc)
+    utc: Flags.boolean({char: 'u'}),
   }
 
   public async run(): Promise<void> {
     const {args, flags} = await this.parse(HelloGreetings)
+    if (flags.name) throw new Error('name is required')
 
-    const name = flags.name ?? 'world'
-    this.log(`hello ${name} from /Users/machointossh/Documents/develop/project/clifftop/src/commands/hello/greetings.ts`)
-    if (args.file && flags.force) {
-      this.log(`you input --force and --file: ${args.file}`)
-    }
+    const now = new Date()
+    const currentHour = flags.utc ? now.getUTCHours() : now.getHours()
+    const greetings = getGreetings(currentHour)
+
+    const honorific = flags.honorific ? `${capitalizeFirstLetter(flags.honorific)} ` : ''
+    const name = capitalizeFirstLetter(args.name)
+
+    this.log(`${greetings}, ${honorific}${name}`)
   }
 }
