@@ -1,7 +1,6 @@
+import {getGreetings} from '@/utils/greetings'
+import {capitalizeFirstLetter} from '@/utils/strings.js'
 import {Args, Command, Flags} from '@oclif/core'
-
-import {getGreetings} from '../../utils/greetings.js'
-import {capitalizeFirstLetter} from '../../utils/strings.js'
 
 export default class HelloGreetings extends Command {
   static override args = {
