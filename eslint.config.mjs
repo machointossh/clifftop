@@ -11,6 +11,10 @@ export default [
   ...oclif,
   prettier,
   {
+    ignores: ["bin/**/*.js", 'eslint.config.mjs'],
+    rules: {
+      semi: ['error', 'always']
+    },
     settings: {
       'import/resolver': {
         typescript: {
