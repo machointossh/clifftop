@@ -30,6 +30,7 @@ USAGE
 # Commands
 <!-- commands -->
 * [`clifftop hello PERSON`](#clifftop-hello-person)
+* [`clifftop hello greetings NAME`](#clifftop-hello-greetings-name)
 * [`clifftop hello world`](#clifftop-hello-world)
 * [`clifftop help [COMMAND]`](#clifftop-help-command)
 * [`clifftop plugins`](#clifftop-plugins)
@@ -66,6 +67,30 @@ EXAMPLES
 ```
 
 _See code: [src/commands/hello/index.ts](https://github.com/machointossh/clifftop/blob/v0.0.0/src/commands/hello/index.ts)_
+
+## `clifftop hello greetings NAME`
+
+describe the command here
+
+```
+USAGE
+  $ clifftop hello greetings NAME [-h <value>] [-u]
+
+ARGUMENTS
+  NAME  the name to greet
+
+FLAGS
+  -h, --honorific=<value>  honorific to add before name
+  -u, --utc
+
+DESCRIPTION
+  describe the command here
+
+EXAMPLES
+  $ clifftop hello greetings
+```
+
+_See code: [src/commands/hello/greetings.ts](https://github.com/machointossh/clifftop/blob/v0.0.0/src/commands/hello/greetings.ts)_
 
 ## `clifftop hello world`
 

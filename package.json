@@ -67,6 +67,7 @@
   },
   "repository": "machointossh/clifftop",
   "scripts": {
+    "doc": "oclif readme --readme-path=docs/README.md",
     "build": "shx rm -rf dist && tsc -b --force && tsc-alias",
     "lint": "eslint",
     "format": "eslint --fix",
