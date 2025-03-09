@@ -1,397 +1,101 @@
-clifftop
-=================
+# Clifftop
 
-An Example Project for oclif
+<div align="center">
+<img alt="clifftop.png" src="./docs/images/clifftop3.jpg"/>
+<p>
+<em>
+<strong> The <code>clifftop</code> Command:</strong>
+An Example Project for <code><a href="https://oclif.io">oclif</a></code>
+</em>
+</p>
+</div>
 
+## What Is This?
 
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/clifftop.svg)](https://npmjs.org/package/clifftop)
-[![Downloads/week](https://img.shields.io/npm/dw/clifftop.svg)](https://npmjs.org/package/clifftop)
+`clifftop` is a sample project designed to demonstrate the `oclif` framework.
 
+The name was inspired by "o**clif(f)**", with the intention of providing
+an overview of `oclif`, just like looking down from a clifftop.
 
-<!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
-# Usage
-<!-- usage -->
-```sh-session
-$ npm install -g clifftop
-$ clifftop COMMAND
-running command...
-$ clifftop (--version)
-clifftop/0.0.0 darwin-arm64 node-v22.14.0
-$ clifftop --help [COMMAND]
-USAGE
-  $ clifftop COMMAND
-...
-```
-<!-- usagestop -->
-# Commands
-<!-- commands -->
-* [`clifftop hello PERSON`](#clifftop-hello-person)
-* [`clifftop hello world`](#clifftop-hello-world)
-* [`clifftop help [COMMAND]`](#clifftop-help-command)
-* [`clifftop plugins`](#clifftop-plugins)
-* [`clifftop plugins add PLUGIN`](#clifftop-plugins-add-plugin)
-* [`clifftop plugins:inspect PLUGIN...`](#clifftop-pluginsinspect-plugin)
-* [`clifftop plugins install PLUGIN`](#clifftop-plugins-install-plugin)
-* [`clifftop plugins link PATH`](#clifftop-plugins-link-path)
-* [`clifftop plugins remove [PLUGIN]`](#clifftop-plugins-remove-plugin)
-* [`clifftop plugins reset`](#clifftop-plugins-reset)
-* [`clifftop plugins uninstall [PLUGIN]`](#clifftop-plugins-uninstall-plugin)
-* [`clifftop plugins unlink [PLUGIN]`](#clifftop-plugins-unlink-plugin)
-* [`clifftop plugins update`](#clifftop-plugins-update)
+For context, [`oclif`](https://oclif.io) is a CLI development framework for Node.js, created by Salesforce.
+Other well-known Node.js-based CLI frameworks include Commander, Yargs, and Vorpal,
+but `oclif` stands out because it allows defining command structures using a directory-based hierarchy.
 
-## `clifftop hello PERSON`
+### Why Clifftop?
 
-Say hello
+`oclif` is a powerful framework, but it comes with some challenges, such as
+handling custom aliases, ESLint rules, and managing development warnings.
+This project addresses those challenges while serving as a hands-on guide for `oclif` users.
 
-```
-USAGE
-  $ clifftop hello PERSON -f <value>
+One of `oclif`’s strengths is its directory-based structure.
+However, as the hierarchy deepens, deeply nested relative imports like `../../../utils/strings` can reduce readability.
 
-ARGUMENTS
-  PERSON  Person to say hello to
+Using the `@` alias for local package references allows absolute-style imports from the `src/` directory,
+improving code clarity and maintainability.
 
-FLAGS
-  -f, --from=<value>  (required) Who is saying hello
+```typescript
+// Deeply nested relative imports
+import { capitalizeFirstLetter } from '../../../../utils/strings';
 
-DESCRIPTION
-  Say hello
-
-EXAMPLES
-  $ clifftop hello friend --from oclif
-  hello friend from oclif! (./src/commands/hello/index.ts)
+// Absolute-style imports using alias
+import { capitalizeFirstLetter } from '@/utils/strings';
 ```
 
-_See code: [src/commands/hello/index.ts](https://github.com/machointossh/clifftop/blob/v0.0.0/src/commands/hello/index.ts)_
+### Challenges Addressed in This Project
 
-## `clifftop hello world`
+* Running `./bin/dev.js` immediately after project creation results in warnings due to inappropriate `node` command options.
+* `oclif` does not natively support `@/` aliases, making it difficult to reference `./src/` from `./test/`.
+* Importing local packages requires `.js` extensions by default, which can be cumbersome.
+* ESLint does not enforce semicolons (`;`) by default, but this project does (excluding `./bin/*.js` and `eslint.config.mjs`).
 
-Say hello world
+These challenges are based on oclif version `4.17.34`.
 
-```
-USAGE
-  $ clifftop hello world
+## Enable `clifftop` Command in Your Shell
 
-DESCRIPTION
-  Say hello world
+There is no need to manually update $PATH; simply run pnpm link.
 
-EXAMPLES
-  $ clifftop hello world
-  hello world! (./src/commands/hello/world.ts)
-```
+Set up `pnpm` if you haven't already.
+Note that `pnpm setup` modifies your shell configuration files such as `.bashrc`, `.zshrc`, and `config.fish`.
 
-_See code: [src/commands/hello/world.ts](https://github.com/machointossh/clifftop/blob/v0.0.0/src/commands/hello/world.ts)_
-
-## `clifftop help [COMMAND]`
-
-Display help for clifftop.
-
-```
-USAGE
-  $ clifftop help [COMMAND...] [-n]
-
-ARGUMENTS
-  COMMAND...  Command to show help for.
-
-FLAGS
-  -n, --nested-commands  Include all nested commands in the output.
-
-DESCRIPTION
-  Display help for clifftop.
+```sh
+pnpm setup
+exec $SHELL -l
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.2.26/src/commands/help.ts)_
+Use `pnpm link` to enable `clifftop` only within this project.
 
-## `clifftop plugins`
+```sh
+pnpm link
 
-List installed plugins.
-
-```
-USAGE
-  $ clifftop plugins [--json] [--core]
-
-FLAGS
-  --core  Show core plugins.
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  List installed plugins.
-
-EXAMPLES
-  $ clifftop plugins
+# OPTIONAL:
+# If you need `clifftop` available in all shell sessions, run the following command.
+# Run `pnpm unlink --global` for reset.
+pnpm link --global
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.4.34/src/commands/plugins/index.ts)_
+Install dependencies and build `./dist` directory.
 
-## `clifftop plugins add PLUGIN`
-
-Installs a plugin into clifftop.
-
-```
-USAGE
-  $ clifftop plugins add PLUGIN... [--json] [-f] [-h] [-s | -v]
-
-ARGUMENTS
-  PLUGIN...  Plugin to install.
-
-FLAGS
-  -f, --force    Force npm to fetch remote resources even if a local copy exists on disk.
-  -h, --help     Show CLI help.
-  -s, --silent   Silences npm output.
-  -v, --verbose  Show verbose npm output.
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  Installs a plugin into clifftop.
-
-  Uses npm to install plugins.
-
-  Installation of a user-installed plugin will override a core plugin.
-
-  Use the CLIFFTOP_NPM_LOG_LEVEL environment variable to set the npm loglevel.
-  Use the CLIFFTOP_NPM_REGISTRY environment variable to set the npm registry.
-
-ALIASES
-  $ clifftop plugins add
-
-EXAMPLES
-  Install a plugin from npm registry.
-
-    $ clifftop plugins add myplugin
-
-  Install a plugin from a github url.
-
-    $ clifftop plugins add https://github.com/someuser/someplugin
-
-  Install a plugin from a github slug.
-
-    $ clifftop plugins add someuser/someplugin
+```sh
+pnpm install --frozen-lockfile
+pnpm run build
 ```
 
-## `clifftop plugins:inspect PLUGIN...`
+Now the command is now available
 
-Displays installation properties of a plugin.
-
-```
-USAGE
-  $ clifftop plugins inspect PLUGIN...
-
-ARGUMENTS
-  PLUGIN...  [default: .] Plugin to inspect.
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  Displays installation properties of a plugin.
-
-EXAMPLES
-  $ clifftop plugins inspect myplugin
+```sh
+clifftop hello:world
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.4.34/src/commands/plugins/inspect.ts)_
+## Develop
 
-## `clifftop plugins install PLUGIN`
+Run the following command to prepare the `./node_modules` directory:
 
-Installs a plugin into clifftop.
-
-```
-USAGE
-  $ clifftop plugins install PLUGIN... [--json] [-f] [-h] [-s | -v]
-
-ARGUMENTS
-  PLUGIN...  Plugin to install.
-
-FLAGS
-  -f, --force    Force npm to fetch remote resources even if a local copy exists on disk.
-  -h, --help     Show CLI help.
-  -s, --silent   Silences npm output.
-  -v, --verbose  Show verbose npm output.
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  Installs a plugin into clifftop.
-
-  Uses npm to install plugins.
-
-  Installation of a user-installed plugin will override a core plugin.
-
-  Use the CLIFFTOP_NPM_LOG_LEVEL environment variable to set the npm loglevel.
-  Use the CLIFFTOP_NPM_REGISTRY environment variable to set the npm registry.
-
-ALIASES
-  $ clifftop plugins add
-
-EXAMPLES
-  Install a plugin from npm registry.
-
-    $ clifftop plugins install myplugin
-
-  Install a plugin from a github url.
-
-    $ clifftop plugins install https://github.com/someuser/someplugin
-
-  Install a plugin from a github slug.
-
-    $ clifftop plugins install someuser/someplugin
+```sh
+pnpm install --frozen-lockfile
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.4.34/src/commands/plugins/install.ts)_
+During development, run the clifftop command with:
 
-## `clifftop plugins link PATH`
-
-Links a plugin into the CLI for development.
-
+```sh
+./bin/dev.js hello:world
 ```
-USAGE
-  $ clifftop plugins link PATH [-h] [--install] [-v]
-
-ARGUMENTS
-  PATH  [default: .] path to plugin
-
-FLAGS
-  -h, --help          Show CLI help.
-  -v, --verbose
-      --[no-]install  Install dependencies after linking the plugin.
-
-DESCRIPTION
-  Links a plugin into the CLI for development.
-
-  Installation of a linked plugin will override a user-installed or core plugin.
-
-  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello'
-  command will override the user-installed or core plugin implementation. This is useful for development work.
-
-
-EXAMPLES
-  $ clifftop plugins link myplugin
-```
-
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.4.34/src/commands/plugins/link.ts)_
-
-## `clifftop plugins remove [PLUGIN]`
-
-Removes a plugin from the CLI.
-
-```
-USAGE
-  $ clifftop plugins remove [PLUGIN...] [-h] [-v]
-
-ARGUMENTS
-  PLUGIN...  plugin to uninstall
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Removes a plugin from the CLI.
-
-ALIASES
-  $ clifftop plugins unlink
-  $ clifftop plugins remove
-
-EXAMPLES
-  $ clifftop plugins remove myplugin
-```
-
-## `clifftop plugins reset`
-
-Remove all user-installed and linked plugins.
-
-```
-USAGE
-  $ clifftop plugins reset [--hard] [--reinstall]
-
-FLAGS
-  --hard       Delete node_modules and package manager related files in addition to uninstalling plugins.
-  --reinstall  Reinstall all plugins after uninstalling.
-```
-
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.4.34/src/commands/plugins/reset.ts)_
-
-## `clifftop plugins uninstall [PLUGIN]`
-
-Removes a plugin from the CLI.
-
-```
-USAGE
-  $ clifftop plugins uninstall [PLUGIN...] [-h] [-v]
-
-ARGUMENTS
-  PLUGIN...  plugin to uninstall
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Removes a plugin from the CLI.
-
-ALIASES
-  $ clifftop plugins unlink
-  $ clifftop plugins remove
-
-EXAMPLES
-  $ clifftop plugins uninstall myplugin
-```
-
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.4.34/src/commands/plugins/uninstall.ts)_
-
-## `clifftop plugins unlink [PLUGIN]`
-
-Removes a plugin from the CLI.
-
-```
-USAGE
-  $ clifftop plugins unlink [PLUGIN...] [-h] [-v]
-
-ARGUMENTS
-  PLUGIN...  plugin to uninstall
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Removes a plugin from the CLI.
-
-ALIASES
-  $ clifftop plugins unlink
-  $ clifftop plugins remove
-
-EXAMPLES
-  $ clifftop plugins unlink myplugin
-```
-
-## `clifftop plugins update`
-
-Update installed plugins.
-
-```
-USAGE
-  $ clifftop plugins update [-h] [-v]
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Update installed plugins.
-```
-
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v5.4.34/src/commands/plugins/update.ts)_
-<!-- commandsstop -->

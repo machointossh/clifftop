@@ -1,0 +1,10 @@
+line-length:
+  line_length: 120
+  heading_line_length: 40
+  code_block_line_length: 80
+  code_blocks: true
+  tables: true
+  headings: true
+  strict: false
+  stern: false
+MD033: false
