@@ -1,6 +1,5 @@
+import {getGreetings} from '@/utils/greetings'
 import {expect} from 'chai'
-
-import {getGreetings} from '../../src/utils/greetings.js'
 
 describe('getGreetings', () => {
   it('returns good morning', () => {

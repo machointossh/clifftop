@@ -1,15 +1,29 @@
 {
   "compilerOptions": {
     "declaration": true,
-    "module": "Node16",
+    "module": "ESNext",
     "outDir": "dist",
     "rootDir": "src",
-    "strict": true,
-    "target": "es2022",
-    "moduleResolution": "node16"
+    "baseUrl": "src",
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    },
+    "target": "ES2022",
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
+    "composite": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "strict": true
   },
-  "include": ["./src/**/*"],
-  "ts-node": {
-    "esm": true
-  }
+  "tsc-alias": {
+    "resolveFullPaths": true,
+    "verbose": false
+  },
+  "include": [
+    "src/**/*"
+  ]
 }

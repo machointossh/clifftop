@@ -13,6 +13,7 @@
     "@oclif/plugin-plugins": "^5"
   },
   "devDependencies": {
+    "@esbuild-kit/esm-loader": "^2.6.5",
     "@eslint/compat": "^1",
     "@oclif/prettier-config": "^0.2.1",
     "@oclif/test": "^4",
@@ -23,10 +24,15 @@
     "eslint": "^9",
     "eslint-config-oclif": "^6",
     "eslint-config-prettier": "^10",
+    "eslint-import-resolver-typescript": "^3.8.3",
+    "eslint-plugin-import": "^2.31.0",
     "mocha": "^10",
     "oclif": "^4",
     "shx": "^0.3.3",
     "ts-node": "^10",
+    "tsc-alias": "^1.8.11",
+    "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.19.3",
     "typescript": "^5"
   },
   "engines": {
@@ -61,12 +67,12 @@
   },
   "repository": "machointossh/clifftop",
   "scripts": {
-    "build": "shx rm -rf dist && tsc -b",
+    "build": "shx rm -rf dist && tsc -b --force && tsc-alias",
     "lint": "eslint",
     "postpack": "shx rm -f oclif.manifest.json",
     "posttest": "pnpm run lint",
     "prepack": "oclif manifest && oclif readme",
-    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
+    "test": "TS_NODE_PROJECT=./test/tsconfig.json mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif readme && git add README.md"
   },
   "types": "dist/index.d.ts"
