@@ -8,6 +8,9 @@
 An Example Project for <code><a href="https://oclif.io">oclif</a></code>
 </em>
 </p>
+<p>
+If you find this project helpful, we’d appreciate it if you could give it a ⭐ on GitHub.
+</p>
 </div>
 
 ## What Is This?
@@ -17,8 +20,12 @@ An Example Project for <code><a href="https://oclif.io">oclif</a></code>
 The name was inspired by "o**clif(f)**", with the intention of providing
 an overview of `oclif`, just like looking down from a clifftop.
 
-For context, [`oclif`](https://oclif.io) is a CLI development framework for Node.js, created by Salesforce.
-Other well-known Node.js-based CLI frameworks include Commander, Yargs, and Vorpal,
+For context, [`oclif`](https://oclif.io) is a CLI development framework for Node.js,
+created and maintained by [Salesforce, Inc](https://www.salesforce.com).
+Other well-known Node.js-based CLI frameworks include
+[Commander](https://www.npmjs.com/package/commander),
+[Yargs](https://yargs.js.org),
+and [Vorpal](https://vorpal.js.org),
 but `oclif` stands out because it allows defining command structures using a directory-based hierarchy.
 
 ### Why Clifftop?
@@ -35,7 +42,7 @@ improving code clarity and maintainability.
 
 ```typescript
 // Deeply nested relative imports
-import { capitalizeFirstLetter } from '../../../../utils/strings';
+import { capitalizeFirstLetter } from '../../../utils/strings';
 
 // Absolute-style imports using alias
 import { capitalizeFirstLetter } from '@/utils/strings';
@@ -69,18 +76,18 @@ pnpm link
 
 # OPTIONAL:
 # If you need `clifftop` available in all shell sessions, run the following command.
-# Run `pnpm unlink --global` for reset.
+# Run `pnpm unlink --global` to reset it.
 pnpm link --global
 ```
 
-Install dependencies and build `./dist` directory.
+Install dependencies and build the `./dist` directory.
 
 ```sh
 pnpm install --frozen-lockfile
 pnpm run build
 ```
 
-Now the command is now available
+Now the command is now available:
 
 ```sh
 clifftop hello:world
