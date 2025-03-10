@@ -9,10 +9,22 @@ on:
 
 jobs:
   release:
+    strategy:
+      matrix:
+        os: ['ubuntu-latest']
+        node_version: ['22.14.0']
+      fail-fast: false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install the latest corepack and enable pnpm
+        run: |
+          npm install -g corepack@latest
+          corepack enable pnpm
       - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node_version }}
+          cache: pnpm
       - name: Check if version already exists
         id: version-check
         run: |
@@ -47,7 +59,7 @@ jobs:
         if: ${{ steps.version-check.outputs.skipped == 'false' }}
         id: oclif-readme
         run: |
-          pnpm install
+          pnpm install --frozen-lockfile
           pnpm run readme
           if [ -n "$(git status --porcelain)" ]; then
             git add .
