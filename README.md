@@ -9,7 +9,7 @@ An Example Project for <code><a href="https://oclif.io">oclif</a></code>
 </em>
 </p>
 <p>
-If you find this project helpful, we’d appreciate it if you could give it a ⭐ on GitHub.
+If you find this project helpful, I’d appreciate it if you could give it a ⭐ on GitHub.
 </p>
 </div>
 
