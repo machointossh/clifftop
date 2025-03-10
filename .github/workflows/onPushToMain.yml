@@ -3,7 +3,9 @@ name: version, tag and github release
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - test/16-fix-workflow-version-tag-release
 
 jobs:
   release:
