@@ -10,7 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install the latest corepack and enable pnpm
+        run: |
+          npm install -g corepack@latest
+          corepack enable pnpm
       - uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0'
+          cache: pnpm
       - name: Check if version already exists
         id: version-check
         run: |
@@ -32,25 +39,31 @@ jobs:
       - name: Setup git
         if: ${{ steps.version-check.outputs.skipped == 'false' }}
         run: |
-          git config --global user.email ${{ secrets.GH_EMAIL }}
-          git config --global user.name ${{ secrets.GH_USERNAME }}
+          git config --global user.email $USER_EMAIL
+          git config --global user.name $USER_NAME
+        env:
+          # Let `github-actions[bot]` commit this release
+          # - https://github.com/orgs/community/discussions/26560#discussioncomment-3531273
+          # - https://github.com/orgs/community/discussions/26560#discussioncomment-3252339
+          # - https://github.com/actions/checkout/pull/1707
+          USER_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"
+          USER_NAME: "github-actions[bot]"
       - name: Generate oclif README
         if: ${{ steps.version-check.outputs.skipped == 'false' }}
         id: oclif-readme
         run: |
-          pnpm install
-          pnpm exec oclif readme
+          pnpm install --frozen-lockfile
+          pnpm run readme
           if [ -n "$(git status --porcelain)" ]; then
             git add .
-            git commit -am "chore: update README.md"
+            git commit -am "chore: update docs/README.md"
             git push -u origin ${{ github.ref_name }}
           fi
-      - name: Create Github Release
-        uses: ncipollo/release-action@2c591bcc8ecdcd2db72b97d6147f871fcd833ba5
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1
         if: ${{ steps.version-check.outputs.skipped == 'false' }}
         with:
           name: ${{ steps.version-check.outputs.tag }}
           tag: ${{ steps.version-check.outputs.tag }}
           commit: ${{ github.ref_name }}
-          token: ${{ secrets.GH_TOKEN }}
           skipIfReleaseExists: true

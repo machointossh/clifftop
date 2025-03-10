@@ -68,15 +68,15 @@
   },
   "repository": "machointossh/clifftop",
   "scripts": {
-    "doc": "oclif readme --readme-path=docs/README.md",
+    "readme": "oclif readme --readme-path=docs/README.md",
     "build": "shx rm -rf dist && tsc -b --force && tsc-alias",
     "lint": "eslint",
     "format": "eslint --fix",
     "postpack": "shx rm -f oclif.manifest.json",
     "posttest": "pnpm run lint",
-    "prepack": "oclif manifest && oclif readme",
+    "prepack": "oclif manifest && pnpm run doc",
     "test": "cross-env TS_NODE_PROJECT=./test/tsconfig.json mocha --forbid-only \"test/**/*.test.ts\"",
-    "version": "oclif readme && git add README.md"
+    "version": "pnpm run doc && git add docs/README.md"
   },
   "types": "dist/index.d.ts",
   "packageManager": "pnpm@10.5.2"
