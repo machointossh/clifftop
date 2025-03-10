@@ -59,7 +59,7 @@ jobs:
             git commit -am "chore: update docs/README.md"
             git push -u origin ${{ github.ref_name }}
           fi
-      - name: Create Github Release
+      - name: Create GitHub Release
         uses: ncipollo/release-action@2c591bcc8ecdcd2db72b97d6147f871fcd833ba5
         if: ${{ steps.version-check.outputs.skipped == 'false' }}
         with:
