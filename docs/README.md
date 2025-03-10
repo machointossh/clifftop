@@ -20,7 +20,7 @@ $ npm install -g clifftop
 $ clifftop COMMAND
 running command...
 $ clifftop (--version)
-clifftop/0.0.0 linux-x64 node-v22.14.0
+clifftop/0.0.0 darwin-arm64 node-v22.14.0
 $ clifftop --help [COMMAND]
 USAGE
   $ clifftop COMMAND
@@ -29,6 +29,9 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`clifftop hello PERSON`](#clifftop-hello-person)
+* [`clifftop hello greetings NAME`](#clifftop-hello-greetings-name)
+* [`clifftop hello world`](#clifftop-hello-world)
 * [`clifftop help [COMMAND]`](#clifftop-help-command)
 * [`clifftop plugins`](#clifftop-plugins)
 * [`clifftop plugins add PLUGIN`](#clifftop-plugins-add-plugin)
@@ -40,6 +43,72 @@ USAGE
 * [`clifftop plugins uninstall [PLUGIN]`](#clifftop-plugins-uninstall-plugin)
 * [`clifftop plugins unlink [PLUGIN]`](#clifftop-plugins-unlink-plugin)
 * [`clifftop plugins update`](#clifftop-plugins-update)
+
+## `clifftop hello PERSON`
+
+Say hello
+
+```
+USAGE
+  $ clifftop hello PERSON -f <value>
+
+ARGUMENTS
+  PERSON  Person to say hello to
+
+FLAGS
+  -f, --from=<value>  (required) Who is saying hello
+
+DESCRIPTION
+  Say hello
+
+EXAMPLES
+  $ clifftop hello friend --from oclif
+  hello friend from oclif! (./src/commands/hello/index.ts)
+```
+
+_See code: [src/commands/hello/index.ts](https://github.com/machointossh/clifftop/blob/v0.0.0/src/commands/hello/index.ts)_
+
+## `clifftop hello greetings NAME`
+
+describe the command here
+
+```
+USAGE
+  $ clifftop hello greetings NAME [-h <value>] [-u]
+
+ARGUMENTS
+  NAME  the name to greet
+
+FLAGS
+  -h, --honorific=<value>  honorific to add before name
+  -u, --utc
+
+DESCRIPTION
+  describe the command here
+
+EXAMPLES
+  $ clifftop hello greetings
+```
+
+_See code: [src/commands/hello/greetings.ts](https://github.com/machointossh/clifftop/blob/v0.0.0/src/commands/hello/greetings.ts)_
+
+## `clifftop hello world`
+
+Say hello world
+
+```
+USAGE
+  $ clifftop hello world
+
+DESCRIPTION
+  Say hello world
+
+EXAMPLES
+  $ clifftop hello world
+  hello world! (./src/commands/hello/world.ts)
+```
+
+_See code: [src/commands/hello/world.ts](https://github.com/machointossh/clifftop/blob/v0.0.0/src/commands/hello/world.ts)_
 
 ## `clifftop help [COMMAND]`
 
