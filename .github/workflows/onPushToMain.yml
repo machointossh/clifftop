@@ -39,10 +39,10 @@ jobs:
         id: oclif-readme
         run: |
           pnpm install
-          pnpm exec oclif readme
+          pnpm run readme
           if [ -n "$(git status --porcelain)" ]; then
             git add .
-            git commit -am "chore: update README.md"
+            git commit -am "chore: update docs/README.md"
             git push -u origin ${{ github.ref_name }}
           fi
       - name: Create Github Release
