@@ -87,7 +87,7 @@ pnpm install --frozen-lockfile
 pnpm run build
 ```
 
-Now the command is now available:
+Now the command is available:
 
 ```sh
 clifftop hello:world
