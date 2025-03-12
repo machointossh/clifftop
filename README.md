@@ -50,10 +50,10 @@ import { capitalizeFirstLetter } from '@/utils/strings';
 
 ### Challenges Addressed in This Project
 
-* Running `./bin/dev.js` immediately after project creation results in warnings due to inappropriate `node` command options.
-* `oclif` does not natively support `@/` aliases, making it difficult to reference `./src/` from `./test/`.
-* Importing local packages requires `.js` extensions by default, which can be cumbersome.
-* ESLint does not enforce semicolons (`;`) by default, but this project does (excluding `./bin/*.js` and `eslint.config.mjs`).
+* Running `./bin/dev.js` immediately after project creation results in warnings due to inappropriate `node` command options. ([#1](https://github.com/machointossh/clifftop/issues/1))
+* `oclif` does not natively support `@/` aliases, making it difficult to reference `./src/` from `./test/`. ([#3](https://github.com/machointossh/clifftop/issues/3))
+* Importing local packages requires `.js` extensions by default, which can be cumbersome. ([#3](https://github.com/machointossh/clifftop/issues/3))
+* ESLint does not enforce semicolons (`;`) by default, but this project does (excluding `./bin/*.js` and `eslint.config.mjs`). ([#5](https://github.com/machointossh/clifftop/issues/5))
 
 These challenges are based on oclif version `4.17.34`.
 
