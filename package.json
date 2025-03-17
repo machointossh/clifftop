@@ -73,7 +73,7 @@
     "readme": "oclif readme --readme-path=docs/README.md",
     "build": "shx rm -rf dist && tsc -b --force && tsc-alias",
     "lint": "eslint",
-    "format": "eslint --fix",
+    "format": "prettier src/ test/ --write && eslint --fix",
     "postpack": "shx rm -f oclif.manifest.json",
     "posttest": "pnpm run lint",
     "prepack": "oclif manifest && pnpm run doc",
