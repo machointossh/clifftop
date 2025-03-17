@@ -1,5 +1,5 @@
-import {getGreetings} from '@/utils/greetings';
-import {expect} from 'chai';
+import { getGreetings } from '@/utils/greetings';
+import { expect } from 'chai';
 
 describe('getGreetings', () => {
   it('returns good morning', () => {
