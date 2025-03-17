@@ -10,7 +10,6 @@ export default [
   includeIgnoreFile(gitignorePath),
   ...oclif,
   {
-    ignores: ["bin/**/*.js", 'eslint.config.mjs'],
     rules: {
       semi: ['error', 'always']
     },
