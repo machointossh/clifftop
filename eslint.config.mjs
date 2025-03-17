@@ -10,9 +10,7 @@ export default [
   includeIgnoreFile(gitignorePath),
   ...oclif,
   {
-    rules: {
-      semi: ['error', 'always']
-    },
+    rules: {},
     settings: {
       'import/resolver': {
         typescript: {
