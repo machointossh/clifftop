@@ -9,12 +9,8 @@ const gitignorePath = path.resolve(path.dirname(fileURLToPath(import.meta.url)),
 export default [
   includeIgnoreFile(gitignorePath),
   ...oclif,
-  prettier,
   {
-    ignores: ["bin/**/*.js", 'eslint.config.mjs'],
-    rules: {
-      semi: ['error', 'always']
-    },
+    rules: {},
     settings: {
       'import/resolver': {
         typescript: {
@@ -24,4 +20,5 @@ export default [
       },
     },
   },
+  prettier,
 ]
